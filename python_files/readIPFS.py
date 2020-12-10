@@ -1,10 +1,8 @@
 import ipfshttpclient
 
-with ipfshttpclient.connect('/ip4/192.168.1.37/tcp/443/', auth=("pi","CaptainHoot117")) as client:
-    hash = client.add('test.txt')['Hash']
+with ipfshttpclient.connect() as client:
+    hash = "QmWj3jMsnKZLpApN9JLDFpf6qAp6tLpXnLLHJPH9H7iEZa"
+    client.get(hash,'./incoming_file')
 
-    print(client.pin.ls(type="all"))
-
-    client.pin.rm(hash)
-
-    print(client.pin.ls(type="all"))
+with open('./incoming_file/' + hash, 'rb') as File:
+    File.read()
