@@ -21,14 +21,14 @@ from socket import socket, AF_INET,SOCK_STREAM
 
 serverPort = 13000
 serverSocket = socket(AF_INET,SOCK_STREAM)
-serverSocket.bind(('',serverPort))
+serverSocket.bind(('172.18.137.64',serverPort))
 serverSocket.listen(1)
 print('The server is ready to receive')
 
 while True:
     connectionSocket, addr = serverSocket.accept()
     publicKey = RSA.importKey(connectionSocket.recv(3000))
-
+    print(addr)
     
 
     message = None

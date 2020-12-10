@@ -7,7 +7,7 @@ from Crypto.Util import Padding
 import ipfshttpclient
 from socket import socket, AF_INET,SOCK_STREAM
 
-serverName = '172.18.137.64'
+serverName = '192.168.1.37'
 serverPort = 13000
 
 clientSocket = socket(AF_INET, SOCK_STREAM)
