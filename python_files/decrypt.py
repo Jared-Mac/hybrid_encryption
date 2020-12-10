@@ -26,5 +26,5 @@ cipherCBC = AES.new(key, AES.MODE_CBC, iv)
 plaintext = cipherCBC.decrypt(ciphertextCBC)                
 
 with open("python_files/decrypted_file", "wb") as File:
-    File.write(plaintext)
+    File.write(Padding.unpad(plaintext,16))
 
