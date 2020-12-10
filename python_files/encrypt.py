@@ -8,20 +8,17 @@ import ipfshttpclient
 from socket import socket, AF_INET,SOCK_STREAM
 
 
-
+#Initialize key and IV values
 key_hex_string = '00112233445566778899AABBCCDDEEFF'
 iv_hex_string  = '000102030405060708090A0B0C0D0E0F'
 
 key_message = bytes.fromhex(key_hex_string)
 iv  = bytes.fromhex(iv_hex_string)
 
-
-
-from socket import socket, AF_INET,SOCK_STREAM
-
+#Initialize TCP Server
 serverPort = 13000
 serverSocket = socket(AF_INET,SOCK_STREAM)
-serverSocket.bind(('172.18.137.64',serverPort))
+serverSocket.bind(('',serverPort))
 serverSocket.listen(1)
 print('The server is ready to receive')
 
