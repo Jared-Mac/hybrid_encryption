@@ -24,34 +24,38 @@ serverSocket.listen(1)
 print('The server is ready to receive')
 
 while True:
+    # Listen for public key
     connectionSocket, addr = serverSocket.accept()
     publicKey = RSA.importKey(connectionSocket.recv(3000))
     print(addr)
     
-
+    # Read File
     message = None
     with open("" + input("Enter filename, include file extension: "), "rb") as File:
         message = File.read()
 
 
-    #Sends Secret 
+    # Encrypt and send secret key 
     cipherRSA = PKCS1_OAEP.new(publicKey)                  
     ciphertextRSA = cipherRSA.encrypt(key_message)
     connectionSocket.send(ciphertextRSA) 
 
-
+    # Encrypt file
     cipherCBC = AES.new(key_message, AES.MODE_CBC, iv)                   
     ciphertextCBC = cipherCBC.encrypt(Padding.pad(message, 16))       
 
-
+    # Write encrypted file
     with open("encrypted_file", "wb") as File:
         File.write(ciphertextCBC)
 
+    # Add encrypted file to IPFS
     with ipfshttpclient.connect() as client:
         hash = client.add("encrypted_file")['Hash']
         print("Save this CID to retrieve it: " + hash)
 
+    # Send hash to Client
     connectionSocket.send(hash.encode()) 
-
+    
+    # Close Connection
     connectionSocket.close()
 
